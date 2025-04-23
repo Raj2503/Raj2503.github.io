@@ -9,11 +9,9 @@ body {
 body {
   font-family: "Inter", sans-serif;
   letter-spacing: -1px;
-
   font-size: 20px;
   height: 100vh;
   width: 100%;
-
   margin: 0;
 }
 
@@ -29,27 +27,30 @@ section h2 {
 }
 
 .rajImg {
-  justify-content: center;
-  background-size: cover;
-  flex-direction: row-reverse;
-  border-radius: 10px;
-  align-items: center;
-  position: fixed;
-  display: flex;
-  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(20, 5%);
+  grid-template-rows: repeat(20, 5%);
+  background: #000; /* Set black background instead of image */
 }
+
 .item {
   background: #333;
   text-align: center;
   height: 300px;
 }
+
 h2 {
   margin: 0;
-
   padding-top: 80px;
   font-size: 30px;
 }
+
 .down {
   text-align: center;
   position: absolute;
@@ -61,14 +62,15 @@ h2 {
 
 .carousel-item.active,
 .carousel-item-next,
-.carousel-item-prev{
-    display:block;
+.carousel-item-prev {
+  display: block;
 }
 
 .row-header {
   margin: 0px auto;
   padding: 0px auto;
 }
+
 .content {
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.4);
   justify-content: center;
@@ -96,50 +98,40 @@ h2 {
  margin-top: -5%;
 } */
 
-.rajImg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.card{
+.card {
   /* border-radius: 4px;
   background: #fff; */
-  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
-    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
-
-cursor: pointer;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
+  transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12), 0.3s box-shadow, 0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
+  cursor: pointer;
 }
 
-.card:hover{
-   transform: scale(1.05);
-box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
-background-color: #fff !important;
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+  background-color: #fff !important;
 }
 
 .rajImg .rajBox {
   position: relative;
-  display: block;
-  width: 5vw;
-  height: 5vh;
-  animation: animate 0.75s ease-in-out forwards;
+  width: 100%;
+  height: 100%;
+  animation: animate 2s ease-in-out forwards;
+  background-image: url("../img/raj.jpg");
+  background-size: 2000% 2000%;
+  opacity: 0; /* Start with transparent boxes */
 }
 
 .rajImg .rajBox:nth-child(even) {
-  animation: animate 1s ease-in-out forwards;
-}
-
-.rajImg .rajBox:nth-child(7n + 3) {
   animation: animate 2.5s ease-in-out forwards;
 }
 
+.rajImg .rajBox:nth-child(7n + 3) {
+  animation: animate 4s ease-in-out forwards;
+}
+
 .rajImg .rajBox:nth-child(7n + 7) {
-  animation: animate 1.5s ease-in-out forwards;
+  animation: animate 3s ease-in-out forwards;
 }
 
 @keyframes animate {
@@ -148,19 +140,11 @@ background-color: #fff !important;
     transform: scale(0) translateY(1000px);
   }
   50% {
-    opacity: 1;
-    background-image: url("../img/raj.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    opacity: 1; /* Make boxes visible during animation */
   }
   100% {
     opacity: 1;
     transform: scale(1) translateY(0px);
-    background-image: url("../img/raj.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
   }
 }
 
