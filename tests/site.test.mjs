@@ -89,6 +89,21 @@ test('ships progressive, reduced-motion-safe infrastructure motion', () => {
   assert.match(script, /classList\.add\('js-motion'\)/);
 });
 
+test('centres every homepage request-flow label in its node', () => {
+  const home = readFileSync('index.html', 'utf8');
+  const styles = readFileSync('site.css', 'utf8');
+
+  for (const [label, x, y] of [
+    ['REQUEST', 66, 80], ['EVENT', 66, 210], ['QUERY', 66, 340],
+    ['API', 230, 80], ['CACHE', 230, 210], ['INDEX', 230, 340],
+    ['STORE', 385, 152], ['STREAM', 363, 287],
+  ]) {
+    assert.match(home, new RegExp(`<text class="node-label" x="${x}" y="${y}">${label}</text>`));
+  }
+
+  assert.match(styles, /\.system-art \.node-label \{[\s\S]*text-anchor: middle;[\s\S]*dominant-baseline: middle;/);
+});
+
 test('every HTML route declares a title, description, canonical and Open Graph metadata', () => {
   for (const route of requiredRoutes) {
     const page = readFileSync(route, 'utf8');
