@@ -35,13 +35,13 @@ test('home page contains accessible page structure and explicit positioning', ()
   const home = readFileSync('index.html', 'utf8');
   assert.match(home, /<a class="skip-link" href="#main-content">/);
   assert.match(home, /<main id="main-content">/);
-  assert.match(home, /Backend systems built for scale, failure and real-world traffic\./);
+  assert.match(home, /Systems that keep their shape under real-world traffic\./);
   assert.match(home, /application\/ld\+json/);
 });
 
 test('home features the strongest public open-source projects with provenance', () => {
   const home = readFileSync('index.html', 'utf8');
-  assert.match(home, /Open source &amp; earlier builds/);
+  assert.match(home, /Labs, earlier builds &amp; open source/);
   assert.match(home, /career-copilot/);
   assert.match(home, /Pacman-Flutter/);
   assert.match(home, /Python-Text-To-Speech-Hindi/);
@@ -131,6 +131,22 @@ test('presents Raj through an expressive but accessible systems hero', () => {
   assert.match(styles, /\.hero-copy \{[\s\S]*position: relative;/);
   assert.match(styles, /\.hero-portrait \{[\s\S]*overflow: hidden;/);
   assert.match(styles, /\.topology-packet \{[\s\S]*animation:/);
+});
+
+test('frames production work and public projects as distinct system stories', () => {
+  const home = readFileSync('index.html', 'utf8');
+  const work = readFileSync('work/index.html', 'utf8');
+  const styles = readFileSync('site.css', 'utf8');
+
+  assert.match(home, /class="work-card"[^>]*data-topology="decisioning"/);
+  assert.match(home, /data-topology="search"/);
+  assert.match(home, /data-topology="reliability"/);
+  assert.match(home, /data-topology="performance"/);
+  assert.match(home, /Labs, earlier builds &amp; open source/);
+  assert.match(home, /class="lab-card lab-pacman"/);
+  assert.match(work, /class="work-canvas"/);
+  assert.match(styles, /\.work-card\[data-topology="decisioning"\]/);
+  assert.match(styles, /\.lab-card \{[\s\S]*min-height:/);
 });
 
 test('every HTML route declares a title, description, canonical and Open Graph metadata', () => {
