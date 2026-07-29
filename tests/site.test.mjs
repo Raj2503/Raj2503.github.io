@@ -119,6 +119,20 @@ test('adds the pointer halo only for fine-pointer, motion-enabled visitors', () 
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\) \{(?:[^{}]|\{[^{}]*\})*?\.pointer-halo \{ display: none; \}/);
 });
 
+test('presents Raj through an expressive but accessible systems hero', () => {
+  const home = readFileSync('index.html', 'utf8');
+  const styles = readFileSync('site.css', 'utf8');
+
+  assert.match(home, /class="hero-copy"/);
+  assert.match(home, /class="hero-portrait"/);
+  assert.match(home, /class="system-art topology-canvas"/);
+  assert.match(home, /class="topology-packet(?: [^"]*)?"/);
+  assert.match(home, /aria-label="Abstract request flow across a resilient distributed system"/);
+  assert.match(styles, /\.hero-copy \{[\s\S]*position: relative;/);
+  assert.match(styles, /\.hero-portrait \{[\s\S]*overflow: hidden;/);
+  assert.match(styles, /\.topology-packet \{[\s\S]*animation:/);
+});
+
 test('every HTML route declares a title, description, canonical and Open Graph metadata', () => {
   for (const route of requiredRoutes) {
     const page = readFileSync(route, 'utf8');
