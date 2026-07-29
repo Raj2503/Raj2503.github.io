@@ -8,6 +8,7 @@
 - Added the supplied portrait, optimised as `assets/raj-aryan.jpg`, and the supplied résumé as `assets/raj-aryan-resume.pdf`.
 - Added a distinct open-source section for Career Copilot, Pacman Flutter and Hindi Text-to-Speech. Star/fork counts are explicitly labelled as a 29 July 2026 snapshot.
 - Added the two supplied Medium articles as canonical external writing entries and RSS items.
+- Added progressive infrastructure motion: sequenced section reveals, animated request signals, availability ripple, responsive menu staging and richer card/CTA feedback. These effects use native CSS and a small observer, with no animation dependency.
 
 ## Design direction
 
@@ -50,6 +51,7 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 - No framework runtime, UI library, web font download, image CDN, analytics vendor or third-party script is shipped.
 - Critical local payloads: CSS 16 KB, JavaScript 4 KB, social SVG 4 KB and favicon SVG 4 KB. The only content image is the supplied, resized 484 KB portrait and loads below the fold.
 - Layout reserves portrait dimensions, avoids large animation libraries and honours `prefers-reduced-motion`.
+- Motion is progressive: content stays visible if JavaScript or `IntersectionObserver` is unavailable, and visitors who prefer reduced motion receive no observer reveals or continuous signal effects.
 - A synthetic Lighthouse run was not added because the project deliberately has no browser automation dependency. The site is structured for strong Core Web Vitals rather than claiming an unmeasured score.
 
 ## Accessibility findings
@@ -69,7 +71,7 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 | `npm run format` | Passed. |
 | `npm run lint` | Passed; validates nine HTML routes and JSON-LD. |
 | `npm run typecheck` | Passed. |
-| `npm test` | Passed; ten tests. |
+| `npm test` | Passed; eleven tests. |
 | `npm run check:links` | Passed; internal links across nine HTML routes. |
 | `npm run build` | Passed; runs lint, links and tests. |
 | `npm run preview` + local HTTP smoke check | Every published route returned HTTP 200. |

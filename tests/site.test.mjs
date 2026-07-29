@@ -77,6 +77,18 @@ test('scrollable article code examples are keyboard focusable', () => {
   }
 });
 
+test('ships progressive, reduced-motion-safe infrastructure motion', () => {
+  const styles = readFileSync('site.css', 'utf8');
+  const script = readFileSync('site.js', 'utf8');
+  assert.match(styles, /\.js-motion \.motion-reveal \{ opacity: 0;/);
+  assert.match(styles, /\.js-motion \.motion-reveal\.is-visible/);
+  assert.match(styles, /@keyframes signal-pulse/);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.motion-reveal/);
+  assert.match(script, /IntersectionObserver/);
+  assert.match(script, /motion-reveal/);
+  assert.match(script, /classList\.add\('js-motion'\)/);
+});
+
 test('every HTML route declares a title, description, canonical and Open Graph metadata', () => {
   for (const route of requiredRoutes) {
     const page = readFileSync(route, 'utf8');

@@ -16,7 +16,7 @@
 - Modify: `tests/site.test.mjs`
 - Test: `tests/site.test.mjs`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```js
 test('ships progressive, reduced-motion-safe infrastructure motion', () => {
@@ -30,7 +30,7 @@ test('ships progressive, reduced-motion-safe infrastructure motion', () => {
 });
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `node --test tests/site.test.mjs`
 
@@ -43,7 +43,7 @@ Expected: the new motion test fails because the hooks do not yet exist.
 - Modify: `site.css`
 - Test: `tests/site.test.mjs`
 
-- [ ] **Step 1: Add JavaScript-only reveal state**
+- [x] **Step 1: Add JavaScript-only reveal state**
 
 ```js
 document.documentElement.classList.add('js-motion');
@@ -52,7 +52,7 @@ const motionTargets = document.querySelectorAll('.section-head, .work-card, .exp
 
 Give each target a stagger index. Observe targets with `IntersectionObserver`, adding `is-visible` once each target enters the viewport; if the API is unavailable, immediately reveal all targets.
 
-- [ ] **Step 2: Add CSS motion primitives**
+- [x] **Step 2: Add CSS motion primitives**
 
 ```css
 .js-motion .motion-reveal { opacity: 0; transform: translateY(18px); }
@@ -61,11 +61,11 @@ Give each target a stagger index. Observe targets with `IntersectionObserver`, a
 
 Add a short, bounded stagger, navigation underline feedback, card elevation/arrow movement, signal-node pulse, and availability indicator ripple. Use existing colours and no gradients or third-party library.
 
-- [ ] **Step 3: Preserve reduced-motion and accessibility**
+- [x] **Step 3: Preserve reduced-motion and accessibility**
 
 Within the existing `prefers-reduced-motion` block, make reveal targets immediately visible and disable continuous signal effects. Keep focus styles intact and never hide content before JavaScript applies `js-motion`.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `node --test tests/site.test.mjs`
 
@@ -77,16 +77,16 @@ Expected: all tests pass, including the new progressive-motion test.
 - Modify: `REDESIGN_REPORT.md`
 - Test: `tests/site.test.mjs`
 
-- [ ] **Step 1: Run the complete validation sequence**
+- [x] **Step 1: Run the complete validation sequence**
 
 Run: `npm run format`, `npm run lint`, `npm run typecheck`, `npm test`, `npm run check:links`, and `npm run build`.
 
 Expected: every command succeeds.
 
-- [ ] **Step 2: Inspect desktop and mobile rendering**
+- [x] **Step 2: Inspect desktop and mobile rendering**
 
 Use local Chrome at 1440 px and 390 px to verify no page-level overflow, reveal classes become visible, motion remains subtle, and reduced-motion CSS retains visible content.
 
-- [ ] **Step 3: Record findings**
+- [x] **Step 3: Record findings**
 
 Add the animation pass and validation result to `REDESIGN_REPORT.md` without claiming synthetic performance scores.

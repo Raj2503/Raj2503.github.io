@@ -1,5 +1,25 @@
 import { SITE } from './content/site-data.js';
 
+const motionPreference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+const motionTargets = document.querySelectorAll('.hero .eyebrow, .hero h1, .hero .lede, .hero .button-row, .hero .availability, .system-art, .section-head, .metric, .work-card, .expertise-card, .service, .article-card, .service-detail, .case-study section, .contact-links, .contact-form, .portrait, .quote');
+
+if (!motionPreference?.matches && 'IntersectionObserver' in window && motionTargets.length) {
+  document.documentElement.classList.add('js-motion');
+  const revealObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+
+  motionTargets.forEach((target, index) => {
+    target.classList.add('motion-reveal');
+    target.style.setProperty('--motion-index', String(index % 6));
+    revealObserver.observe(target);
+  });
+}
+
 const menuButton = document.querySelector('[data-nav-toggle]');
 const navigation = document.querySelector('[data-site-nav]');
 
