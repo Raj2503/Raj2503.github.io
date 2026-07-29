@@ -23,6 +23,7 @@ function startPointerHalo() {
   };
 
   const handlePointerMove = (event) => {
+    if (event.pointerType === 'touch') return;
     pointerX = event.clientX;
     pointerY = event.clientY;
     if (!animationFrame) animationFrame = window.requestAnimationFrame(renderPointerHalo);
