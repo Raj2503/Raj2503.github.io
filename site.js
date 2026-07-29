@@ -3,6 +3,36 @@ import { SITE } from './content/site-data.js';
 const motionPreference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
 const motionTargets = document.querySelectorAll('.hero .eyebrow, .hero h1, .hero .lede, .hero .button-row, .hero .availability, .system-art, .section-head, .metric, .work-card, .expertise-card, .service, .article-card, .service-detail, .case-study section, .contact-links, .contact-form, .portrait, .quote');
 
+const pointerHaloQuery = window.matchMedia?.('(hover: hover) and (pointer: fine)');
+
+function startPointerHalo() {
+  if (motionPreference?.matches || !pointerHaloQuery?.matches) return;
+
+  const halo = document.createElement('div');
+  halo.className = 'pointer-halo';
+  halo.setAttribute('aria-hidden', 'true');
+  document.body.append(halo);
+
+  let animationFrame = 0;
+  let pointerX = -400;
+  let pointerY = -400;
+
+  const renderPointerHalo = () => {
+    animationFrame = 0;
+    halo.style.transform = `translate3d(${pointerX - 180}px, ${pointerY - 180}px, 0)`;
+  };
+
+  const handlePointerMove = (event) => {
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    if (!animationFrame) animationFrame = window.requestAnimationFrame(renderPointerHalo);
+  };
+
+  document.addEventListener('pointermove', handlePointerMove, { passive: true });
+}
+
+startPointerHalo();
+
 if (!motionPreference?.matches && 'IntersectionObserver' in window && motionTargets.length) {
   document.documentElement.classList.add('js-motion');
   const revealObserver = new IntersectionObserver((entries) => {

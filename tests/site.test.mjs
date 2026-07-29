@@ -104,6 +104,20 @@ test('centres every homepage request-flow label in its node', () => {
   assert.match(styles, /\.system-art \.node-label \{[\s\S]*text-anchor: middle;[\s\S]*dominant-baseline: middle;/);
 });
 
+test('adds the pointer halo only for fine-pointer, motion-enabled visitors', () => {
+  const styles = readFileSync('site.css', 'utf8');
+  const script = readFileSync('site.js', 'utf8');
+
+  assert.match(script, /\(hover: hover\) and \(pointer: fine\)/);
+  assert.match(script, /function startPointerHalo\(\)/);
+  assert.match(script, /motionPreference\?\.matches \|\| !pointerHaloQuery\?\.matches/);
+  assert.match(script, /halo\.setAttribute\('aria-hidden', 'true'\)/);
+  assert.match(script, /document\.addEventListener\('pointermove', handlePointerMove, \{ passive: true \}\)/);
+  assert.match(script, /window\.requestAnimationFrame\(renderPointerHalo\)/);
+  assert.match(styles, /\.pointer-halo \{[^}]*position: fixed;[^}]*pointer-events: none;[^}]*will-change: transform;/);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.pointer-halo \{ display: none; \}/);
+});
+
 test('every HTML route declares a title, description, canonical and Open Graph metadata', () => {
   for (const route of requiredRoutes) {
     const page = readFileSync(route, 'utf8');
