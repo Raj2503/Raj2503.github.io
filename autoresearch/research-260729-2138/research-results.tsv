@@ -1,0 +1,5 @@
+# metric_direction: higher_is_better
+iteration	timestamp	source	relevance	status	description
+0	2026-07-29T21:38:00+05:30	LinkedIn/GitHub/resume	5	keep	Established identity and backend positioning baseline.
+1	2026-07-29T21:41:00+05:30	Medium @Rajjj	5	keep	Verified two canonical technical articles for Writing section.
+2	2026-07-29T21:44:00+05:30	General name search	1	discard	Excluded ambiguous Raj Aryan profiles.

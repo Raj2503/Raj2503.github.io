@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /content/
+Disallow: /tests/
+Disallow: /scripts/
+
+Sitemap: https://raj2503.github.io/sitemap.xml

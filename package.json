@@ -1,0 +1,17 @@
+{
+  "name": "raj-aryan-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A dependency-light static portfolio for Raj Aryan.",
+  "type": "module",
+  "scripts": {
+    "format": "node scripts/format.mjs",
+    "lint": "node scripts/lint.mjs",
+    "typecheck": "node --check site.js && node --check content/site-data.js && node --check scripts/lint.mjs",
+    "test": "node --test tests/site.test.mjs",
+    "build": "node scripts/build.mjs",
+    "check:links": "node scripts/check-links.mjs",
+    "preview": "python3 -m http.server 4173"
+  },
+  "engines": { "node": ">=20" }
+}

@@ -1,0 +1,45 @@
+export const SITE = Object.freeze({
+  name: 'Raj Aryan',
+  domain: 'https://raj2503.github.io',
+  role: 'Backend & distributed-systems engineer',
+  email: 'raj250301@gmail.com',
+  links: {
+    linkedin: 'https://www.linkedin.com/in/raj-aryan-2503/',
+    githubPersonal: 'https://github.com/Raj2503',
+    githubWork: 'https://github.com/RajjjAryan',
+    resume: '/assets/raj-aryan-resume.pdf',
+  },
+  metrics: [
+    { value: '4.3M+', label: 'requests per minute operated across high-scale backend systems.' },
+    { value: '7M+', label: 'Kafka events processed daily in an event-driven pipeline.' },
+    { value: '500 → 240 ms', label: 'location-search latency after a service redesign.' },
+    { value: '93%', label: 'reduction in database-query volume through caching improvements.' },
+    { value: '≈3%', label: 'order-rate improvement from real-time promotion personalisation.' },
+  ],
+  openSource: [
+    {
+      name: 'Career Copilot',
+      repository: 'https://github.com/RajjjAryan/career-copilot',
+      description: 'A public, AI-powered job-search pipeline designed for coding agents.',
+      stars: 40,
+      forks: 18,
+      snapshotDate: '2026-07-29',
+    },
+    {
+      name: 'Pacman Flutter',
+      repository: 'https://github.com/Raj2503/Pacman-Flutter',
+      description: 'A vintage Pacman game built in Flutter and featured by Flutter Awesome.',
+      stars: 66,
+      forks: 25,
+      snapshotDate: '2026-07-29',
+    },
+    {
+      name: 'Python Text To Speech Hindi',
+      repository: 'https://github.com/Raj2503/Python-Text-To-Speech-Hindi',
+      description: 'A public Python project for Hindi text-to-speech using a phoneme database.',
+      stars: 25,
+      forks: 7,
+      snapshotDate: '2026-07-29',
+    },
+  ],
+});
