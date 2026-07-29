@@ -113,10 +113,10 @@ test('adds the pointer halo only for fine-pointer, motion-enabled visitors', () 
   assert.match(script, /motionPreference\?\.matches \|\| !pointerHaloQuery\?\.matches/);
   assert.match(script, /halo\.setAttribute\('aria-hidden', 'true'\)/);
   assert.match(script, /document\.addEventListener\('pointermove', handlePointerMove, \{ passive: true \}\)/);
-  assert.match(script, /if \(event\.pointerType === 'touch'\) return;/);
+  assert.match(script, /const handlePointerMove = \(event\) => \{\n\s*if \(event\.pointerType === 'touch'\) return;/);
   assert.match(script, /window\.requestAnimationFrame\(renderPointerHalo\)/);
   assert.match(styles, /\.pointer-halo \{[^}]*position: fixed;[^}]*pointer-events: none;[^}]*will-change: transform;/);
-  assert.match(styles, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.pointer-halo \{ display: none; \}/);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\) \{(?:[^{}]|\{[^{}]*\})*?\.pointer-halo \{ display: none; \}/);
 });
 
 test('every HTML route declares a title, description, canonical and Open Graph metadata', () => {
