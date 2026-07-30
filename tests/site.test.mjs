@@ -161,6 +161,20 @@ test('starts the desktop halo visibly and keeps living topology optional', () =>
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.topology-packet \{ animation: none;/);
 });
 
+test('centres wrapped button labels as well as single-line labels', () => {
+  const styles = readFileSync('site.css', 'utf8');
+
+  assert.match(styles, /\.button \{[\s\S]*text-align: center;/);
+});
+
+test('keeps the mobile hero immediately readable while desktop motion is optional', () => {
+  const styles = readFileSync('site.css', 'utf8');
+  const mobileStyles = styles.slice(styles.indexOf('@media (max-width: 900px)'));
+
+  assert.match(mobileStyles, /\.js-motion \.hero-copy > \.motion-reveal[\s\S]*opacity: 1;/);
+  assert.match(mobileStyles, /\.js-motion \.hero-portrait\.motion-reveal[\s\S]*animation: none;/);
+});
+
 test('every HTML route declares a title, description, canonical and Open Graph metadata', () => {
   for (const route of requiredRoutes) {
     const page = readFileSync(route, 'utf8');

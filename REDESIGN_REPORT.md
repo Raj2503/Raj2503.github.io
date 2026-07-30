@@ -9,10 +9,13 @@
 - Added a distinct open-source section for Career Copilot, Pacman Flutter and Hindi Text-to-Speech. Star/fork counts are explicitly labelled as a 29 July 2026 snapshot.
 - Added the two supplied Medium articles as canonical external writing entries and RSS items.
 - Added progressive infrastructure motion: sequenced section reveals, animated request signals, availability ripple, responsive menu staging and richer card/CTA feedback. These effects use native CSS and a small observer, with no animation dependency.
+- Reframed the homepage as an expressive systems canvas: a portrait-led topology hero, four distinct system-story covers, a Labs presentation for public work and a lightweight work-route topology.
+- Repaired the desktop pointer halo so it is visible on first paint and moves only for fine-pointer, motion-enabled visitors. Mobile and reduced-motion visitors receive a static, immediately readable experience.
+- Corrected wrapped CTA-label alignment across the site, including “Explore services” and “Read the writing”.
 
 ## Design direction
 
-The site uses a calm, premium editorial treatment rather than a generic developer dashboard: black utility navigation, generous whitespace, compact information cards and original infrastructure motifs. The visual language supports the message—systems built for traffic, failure and cost constraints—without exposing internal architecture or adding decorative animation.
+The site uses a calm, premium editorial treatment rather than a generic developer dashboard: black utility navigation, generous whitespace, compact information cards and original infrastructure motifs. The expressive systems canvas adds restrained personality through a shaped portrait, topology overlays, packet signals and topic-specific cover treatments. The visual language supports the message—systems built for traffic, failure and cost constraints—without exposing internal architecture or adding decorative animation.
 
 ## Routes
 
@@ -37,6 +40,7 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 - `content/site-data.js` centralises public profile links, verified metrics and dated open-source project data.
 - `content/articles/` contains markdown source notes for the site articles; `CONTENT_EDITING.md` explains the publishing workflow.
 - Original inline SVG diagrams represent request paths, indexing pipelines and retry multiplication without relying on proprietary assets.
+- The homepage work cards use `data-topology` variants and the Labs cards use CSS-only visual treatments, keeping the different stories distinct without adding an animation library or extra image assets.
 
 ## SEO completed
 
@@ -51,7 +55,7 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 - No framework runtime, UI library, web font download, image CDN, analytics vendor or third-party script is shipped.
 - Critical local payloads: CSS 16 KB, JavaScript 4 KB, social SVG 4 KB and favicon SVG 4 KB. The only content image is the supplied, resized 484 KB portrait and loads below the fold.
 - Layout reserves portrait dimensions, avoids large animation libraries and honours `prefers-reduced-motion`.
-- Motion is progressive: content stays visible if JavaScript or `IntersectionObserver` is unavailable, and visitors who prefer reduced motion receive no observer reveals or continuous signal effects.
+- Motion is progressive: content stays visible if JavaScript or `IntersectionObserver` is unavailable, mobile hero content is immediately visible, and visitors who prefer reduced motion receive no observer reveals or continuous signal effects.
 - A synthetic Lighthouse run was not added because the project deliberately has no browser automation dependency. The site is structured for strong Core Web Vitals rather than claiming an unmeasured score.
 
 ## Accessibility findings
@@ -59,7 +63,7 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 - Every route has a skip link, `main` landmark, visible keyboard focus styling and responsive navigation.
 - Forms use native labels, required fields, useful placeholders and a screen-reader-safe honeypot.
 - SVG diagrams use concise accessible descriptions; images use descriptive alternative text.
-- The CSS supplies a reduced-motion override and mobile layouts at 900 px and 650 px.
+- The CSS supplies a reduced-motion override and mobile layouts at 900 px and 650 px. Fine-pointer halo behaviour is excluded from touch/coarse pointers.
 - Automated static accessibility/discovery lint passed across all nine HTML routes. A browser-based screen-reader audit remains a recommended pre-launch check.
 - The two horizontally scrollable code examples are keyboard-focusable and retain their visible focus treatment.
 
@@ -71,14 +75,15 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 | `npm run format` | Passed. |
 | `npm run lint` | Passed; validates nine HTML routes and JSON-LD. |
 | `npm run typecheck` | Passed. |
-| `npm test` | Passed; eleven tests. |
+| `npm test` | Passed; eighteen tests. |
 | `npm run check:links` | Passed; internal links across nine HTML routes. |
 | `npm run build` | Passed; runs lint, links and tests. |
 | `npm run preview` + local HTTP smoke check | Every published route returned HTTP 200. |
+| Chrome desktop/mobile audit | Passed: all nine routes had no page overflow; visible buttons had centred labels; mobile navigation toggled correctly; the halo behaved correctly for fine, coarse and reduced-motion environments. |
 
 ## Remaining editable values and recommended follow-up
 
-- **Deploy before sharing:** as of 29 July 2026, `https://raj2503.github.io/` is still serving the retired legacy portfolio and the newly designed canonical routes return 404 publicly. The local rebuilt site passes QA, but the GitHub Pages branch must be published before the new SEO URLs are public.
+- **Deploy before sharing:** confirm the GitHub Pages workflow for `master` has completed before sharing the public URL.
 - The canonical domain is currently `https://raj2503.github.io`. Update it consistently before using a custom domain; the exact checklist is in `README.md` and `CONTENT_EDITING.md`.
 - The two site articles are intentionally labelled educational drafts. Replace or expand them with reviewed public writing when ready.
 - Star/fork counts are a snapshot and should be refreshed through `content/site-data.js` when the projects change materially.
