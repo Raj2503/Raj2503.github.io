@@ -15,7 +15,7 @@ function walk(directory) {
 }
 walk(root);
 
-const known = new Set(['/', '/work/', '/services/', '/writing/', '/writing/retry-amplification/', '/writing/cache-boundaries/', '/about/', '/contact/', '/404.html', '/assets/raj-aryan.jpg', '/assets/raj-aryan-resume.pdf', '/assets/mark.svg', '/assets/og-default.svg', '/rss.xml', '/site.css', '/site.js', '/site.webmanifest']);
+const known = new Set(['/', '/work/', '/services/', '/writing/', '/writing/retry-amplification/', '/writing/cache-boundaries/', '/about/', '/contact/', '/404.html', '/assets/raj-aryan.jpg', '/assets/raj-aryan-resume.pdf', '/assets/hero-network-flow.mp4', '/assets/hero-network-flow-poster.jpg', '/assets/mark.svg', '/assets/og-default.svg', '/rss.xml', '/site.css', '/site.js', '/site.webmanifest']);
 const failures = [];
 for (const page of pages) {
   const html = readFileSync(page, 'utf8');

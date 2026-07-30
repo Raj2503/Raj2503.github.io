@@ -1,7 +1,7 @@
 import { SITE } from './content/site-data.js';
 
 const motionPreference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
-const motionTargets = document.querySelectorAll('.hero .eyebrow, .hero h1, .hero .lede, .hero .button-row, .hero .availability, .hero-portrait, .system-art, .section-head, .metric, .work-card, .expertise-card, .service, .article-card, .lab-card, .service-detail, .case-study section, .contact-links, .contact-form, .portrait, .quote, .work-canvas');
+const motionTargets = document.querySelectorAll('.hero .eyebrow, .hero h1, .hero .lede, .hero .button-row, .hero .availability, .hero-network-frame, .section-head, .metric, .work-card, .expertise-card, .service, .article-card, .lab-card, .service-detail, .case-study section, .contact-links, .contact-form, .portrait, .quote, .work-canvas');
 
 const pointerHaloQuery = window.matchMedia?.('(hover: hover) and (pointer: fine)');
 
