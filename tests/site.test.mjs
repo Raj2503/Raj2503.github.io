@@ -175,6 +175,30 @@ test('keeps the mobile hero immediately readable while desktop motion is optiona
   assert.match(mobileStyles, /\.js-motion \.hero-portrait\.motion-reveal[\s\S]*animation: none;/);
 });
 
+test('keeps the portrait and topology in distinct responsive layout tracks', () => {
+  const styles = readFileSync('site.css', 'utf8');
+
+  assert.match(styles, /\.hero-visual \{[^}]*display: grid;/);
+  assert.match(styles, /\.hero-portrait \{[^}]*position: relative;/);
+  assert.match(styles, /\.topology-canvas \{[^}]*position: relative;/);
+  assert.match(styles, /@media \(max-width: 900px\) \{(?:[^{}]|\{[^{}]*\})*?\.hero-visual \{[^}]*grid-template-columns: 1fr;/);
+});
+
+test('gives medium screens a single hero column before the visual tracks become cramped', () => {
+  const styles = readFileSync('site.css', 'utf8');
+
+  assert.match(styles, /@media \(max-width: 1200px\) \{(?:[^{}]|\{[^{}]*\})*?\.hero-grid \{[^}]*grid-template-columns: 1fr;/);
+});
+
+test('keeps contact fields and their guidance legible at laptop widths', () => {
+  const styles = readFileSync('site.css', 'utf8');
+  const contact = readFileSync('contact/index.html', 'utf8');
+
+  assert.match(styles, /@media \(max-width: 1200px\) \{(?:[^{}]|\{[^{}]*\})*?\.form-grid \{[^}]*grid-template-columns: 1fr;/);
+  assert.match(contact, /placeholder="e\.g\. Go, Kafka, Redis, AWS"/);
+  assert.match(contact, /placeholder="e\.g\. reduce p99 latency"/);
+});
+
 test('every HTML route declares a title, description, canonical and Open Graph metadata', () => {
   for (const route of requiredRoutes) {
     const page = readFileSync(route, 'utf8');

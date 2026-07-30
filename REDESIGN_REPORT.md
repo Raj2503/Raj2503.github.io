@@ -12,6 +12,7 @@
 - Reframed the homepage as an expressive systems canvas: a portrait-led topology hero, four distinct system-story covers, a Labs presentation for public work and a lightweight work-route topology.
 - Repaired the desktop pointer halo so it is visible on first paint and moves only for fine-pointer, motion-enabled visitors. Mobile and reduced-motion visitors receive a static, immediately readable experience.
 - Corrected wrapped CTA-label alignment across the site, including “Explore services” and “Read the writing”.
+- Rebuilt the hero's portrait and request-flow visual as separate responsive grid tracks, eliminating the laptop overlap. Added a 1200 px layout transition and a one-column laptop contact form so inputs and their guidance remain readable.
 
 ## Design direction
 
@@ -63,7 +64,7 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 - Every route has a skip link, `main` landmark, visible keyboard focus styling and responsive navigation.
 - Forms use native labels, required fields, useful placeholders and a screen-reader-safe honeypot.
 - SVG diagrams use concise accessible descriptions; images use descriptive alternative text.
-- The CSS supplies a reduced-motion override and mobile layouts at 900 px and 650 px. Fine-pointer halo behaviour is excluded from touch/coarse pointers.
+- The CSS supplies a reduced-motion override, a 1200 px laptop transition and mobile layouts at 900 px and 650 px. Fine-pointer halo behaviour is excluded from touch/coarse pointers.
 - Automated static accessibility/discovery lint passed across all nine HTML routes. A browser-based screen-reader audit remains a recommended pre-launch check.
 - The two horizontally scrollable code examples are keyboard-focusable and retain their visible focus treatment.
 
@@ -75,11 +76,11 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 | `npm run format` | Passed. |
 | `npm run lint` | Passed; validates nine HTML routes and JSON-LD. |
 | `npm run typecheck` | Passed. |
-| `npm test` | Passed; eighteen tests. |
+| `npm test` | Passed; twenty-one tests. |
 | `npm run check:links` | Passed; internal links across nine HTML routes. |
 | `npm run build` | Passed; runs lint, links and tests. |
 | `npm run preview` + local HTTP smoke check | Every published route returned HTTP 200. |
-| Chrome desktop/mobile audit | Passed: all nine routes had no page overflow; visible buttons had centred labels; mobile navigation toggled correctly; the halo behaved correctly for fine, coarse and reduced-motion environments. |
+| Chrome desktop/laptop/tablet/mobile audit | Passed: all nine routes at 1440, 1024, 768 and 390 CSS px (36 checks) had no page overflow, sibling collisions, clipped controls, off-centre buttons or hero visual intersections. Page-by-page visual checks also confirmed the work, services, writing, article, about and contact flows. |
 
 ## Remaining editable values and recommended follow-up
 
