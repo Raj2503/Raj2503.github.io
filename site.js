@@ -1,7 +1,7 @@
 import { SITE } from './content/site-data.js';
 
 const motionPreference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
-const motionTargets = document.querySelectorAll('.hero .eyebrow, .hero h1, .hero .lede, .hero .button-row, .hero .availability, .system-art, .section-head, .metric, .work-card, .expertise-card, .service, .article-card, .service-detail, .case-study section, .contact-links, .contact-form, .portrait, .quote');
+const motionTargets = document.querySelectorAll('.hero .eyebrow, .hero h1, .hero .lede, .hero .button-row, .hero .availability, .hero-portrait, .system-art, .section-head, .metric, .work-card, .expertise-card, .service, .article-card, .lab-card, .service-detail, .case-study section, .contact-links, .contact-form, .portrait, .quote, .work-canvas');
 
 const pointerHaloQuery = window.matchMedia?.('(hover: hover) and (pointer: fine)');
 
@@ -14,13 +14,16 @@ function startPointerHalo() {
   document.body.append(halo);
 
   let animationFrame = 0;
-  let pointerX = -400;
-  let pointerY = -400;
+  let pointerX = window.innerWidth / 2;
+  let pointerY = window.innerHeight * 0.48;
 
   const renderPointerHalo = () => {
     animationFrame = 0;
     halo.style.transform = `translate3d(${pointerX - 180}px, ${pointerY - 180}px, 0)`;
+    halo.dataset.ready = 'true';
   };
+
+  renderPointerHalo();
 
   const handlePointerMove = (event) => {
     if (event.pointerType === 'touch') return;

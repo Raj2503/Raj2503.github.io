@@ -149,6 +149,18 @@ test('frames production work and public projects as distinct system stories', ()
   assert.match(styles, /\.lab-card \{[\s\S]*min-height:/);
 });
 
+test('starts the desktop halo visibly and keeps living topology optional', () => {
+  const styles = readFileSync('site.css', 'utf8');
+  const script = readFileSync('site.js', 'utf8');
+
+  assert.match(script, /let pointerX = window\.innerWidth \/ 2;/);
+  assert.match(script, /let pointerY = window\.innerHeight \* 0\.48;/);
+  assert.match(script, /renderPointerHalo\(\);/);
+  assert.match(styles, /\.pointer-halo\[data-ready="true"\] \{ opacity:/);
+  assert.match(styles, /\.work-card\.motion-reveal \{[\s\S]*scale:/);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.topology-packet \{ animation: none;/);
+});
+
 test('every HTML route declares a title, description, canonical and Open Graph metadata', () => {
   for (const route of requiredRoutes) {
     const page = readFileSync(route, 'utf8');
