@@ -82,26 +82,10 @@ test('ships progressive, reduced-motion-safe infrastructure motion', () => {
   const script = readFileSync('site.js', 'utf8');
   assert.match(styles, /\.js-motion \.motion-reveal \{ opacity: 0;/);
   assert.match(styles, /\.js-motion \.motion-reveal\.is-visible/);
-  assert.match(styles, /@keyframes signal-pulse/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.motion-reveal/);
   assert.match(script, /IntersectionObserver/);
   assert.match(script, /motion-reveal/);
   assert.match(script, /classList\.add\('js-motion'\)/);
-});
-
-test('centres every homepage request-flow label in its node', () => {
-  const home = readFileSync('index.html', 'utf8');
-  const styles = readFileSync('site.css', 'utf8');
-
-  for (const [label, x, y] of [
-    ['REQUEST', 66, 80], ['EVENT', 66, 210], ['QUERY', 66, 340],
-    ['API', 230, 80], ['CACHE', 230, 210], ['INDEX', 230, 340],
-    ['STORE', 385, 152], ['STREAM', 363, 287],
-  ]) {
-    assert.match(home, new RegExp(`<text class="node-label" x="${x}" y="${y}">${label}</text>`));
-  }
-
-  assert.match(styles, /\.system-art \.node-label \{[\s\S]*text-anchor: middle;[\s\S]*dominant-baseline: middle;/);
 });
 
 test('adds the pointer halo only for fine-pointer, motion-enabled visitors', () => {
@@ -119,18 +103,57 @@ test('adds the pointer halo only for fine-pointer, motion-enabled visitors', () 
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\) \{(?:[^{}]|\{[^{}]*\})*?\.pointer-halo \{ display: none; \}/);
 });
 
-test('presents Raj through an expressive but accessible systems hero', () => {
+test('keeps the homepage hero copy positioned relative to its visual treatment', () => {
   const home = readFileSync('index.html', 'utf8');
   const styles = readFileSync('site.css', 'utf8');
 
   assert.match(home, /class="hero-copy"/);
-  assert.match(home, /class="hero-portrait"/);
-  assert.match(home, /class="system-art topology-canvas"/);
-  assert.match(home, /class="topology-packet(?: [^"]*)?"/);
-  assert.match(home, /aria-label="Abstract request flow across a resilient distributed system"/);
+  assert.match(home, /class="hero-visual"/);
   assert.match(styles, /\.hero-copy \{[\s\S]*position: relative;/);
-  assert.match(styles, /\.hero-portrait \{[\s\S]*overflow: hidden;/);
-  assert.match(styles, /\.topology-packet \{[\s\S]*animation:/);
+});
+
+test('uses a local reduced-motion-safe network video instead of a hero portrait', () => {
+  const home = readFileSync('index.html', 'utf8');
+  const styles = readFileSync('site.css', 'utf8');
+  const script = readFileSync('site.js', 'utf8');
+  const mainMatch = home.match(/<main\b[^>]*>[\s\S]*?<\/main>/);
+
+  assert.ok(mainMatch, 'home needs a main element');
+  const main = mainMatch[0];
+  const mainClasses = [...main.matchAll(/<[^>]+\bclass="([^"]*)"[^>]*>/g)]
+    .map(([, classes]) => classes.split(/\s+/));
+  const heroVisualMatch = main.match(/<div class="hero-visual">([\s\S]*?)<\/div>\s*<\/div>\s*<\/section>/);
+
+  assert.doesNotMatch(main, /\bhero-portrait\b/);
+  assert.equal(mainClasses.some((classes) => classes.includes('system-art') && classes.includes('topology-canvas')), false);
+  assert.doesNotMatch(main, /\btopology-packet\b/);
+  assert.match(home, /<figure class="portrait"><img src="\/assets\/raj-aryan\.jpg"/);
+  assert.ok(heroVisualMatch, 'home needs a hero visual block');
+  const heroVisual = heroVisualMatch[0];
+  const heroNetworkFrames = [...heroVisual.matchAll(/<(div|figure)\b[^>]*class="[^"]*\bhero-network-frame\b[^"]*"[^>]*>[\s\S]*?<\/\1>/g)];
+  const heroNetworkVideos = [...heroVisual.matchAll(/<video class="hero-network-video"(?=\s|>)[^>]*>/g)];
+
+  assert.equal(heroNetworkFrames.length, 1, 'hero visual needs exactly one network frame');
+  assert.equal(heroNetworkVideos.length, 1, 'hero visual needs exactly one decorative network video');
+  const heroNetworkFrame = heroNetworkFrames[0][0];
+  const heroNetworkVideoMatch = heroNetworkFrame.match(/<video class="hero-network-video"[^>]*>[\s\S]*?<\/video>/);
+
+  assert.ok(heroNetworkVideoMatch, 'hero network frame needs a video block');
+  const heroNetworkVideo = heroNetworkVideoMatch[0];
+  const heroNetworkVideoTag = heroNetworkVideo.match(/<video\b[^>]*>/)[0];
+  assert.match(heroNetworkVideoTag, /\sautoplay(?:\s|>)/);
+  assert.match(heroNetworkVideoTag, /\sloop(?:\s|>)/);
+  assert.match(heroNetworkVideoTag, /\smuted(?:\s|>)/);
+  assert.match(heroNetworkVideoTag, /\splaysinline(?:\s|>)/);
+  assert.match(heroNetworkVideoTag, /aria-hidden="true"/);
+  assert.match(heroNetworkVideoTag, /poster="\/assets\/hero-network-flow-poster\.jpg"/);
+  assert.match(heroNetworkVideo, /<source src="\/assets\/hero-network-flow\.mp4" type="video\/mp4">/);
+  assert.match(heroNetworkFrame, /<a[^>]*href="https:\/\/www\.pexels\.com\/video\/dynamic-3d-data-visualization-of-network-flow-34336609\/"[^>]*>[^<]+<\/a>/);
+  assert.equal(existsSync('assets/hero-network-flow.mp4'), true, 'Missing hero network video asset');
+  assert.equal(existsSync('assets/hero-network-flow-poster.jpg'), true, 'Missing hero network video poster asset');
+  assert.match(styles, /\.hero-network-frame\s*\{[^}]*\baspect-ratio:\s*4 \/ 5;/);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\) \{(?:[^{}]|\{[^{}]*\})*?\.hero-network-video \{[^}]*display: none;/);
+  assert.match(script, /motionTargets[\s\S]*\.hero-network-frame/);
 });
 
 test('frames production work and public projects as distinct system stories', () => {
@@ -149,7 +172,7 @@ test('frames production work and public projects as distinct system stories', ()
   assert.match(styles, /\.lab-card \{[\s\S]*min-height:/);
 });
 
-test('starts the desktop halo visibly and keeps living topology optional', () => {
+test('starts the desktop halo visibly and keeps work-card motion optional', () => {
   const styles = readFileSync('site.css', 'utf8');
   const script = readFileSync('site.js', 'utf8');
 
@@ -158,7 +181,6 @@ test('starts the desktop halo visibly and keeps living topology optional', () =>
   assert.match(script, /renderPointerHalo\(\);/);
   assert.match(styles, /\.pointer-halo\[data-ready="true"\] \{ opacity:/);
   assert.match(styles, /\.work-card\.motion-reveal \{[\s\S]*scale:/);
-  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.topology-packet \{ animation: none;/);
 });
 
 test('centres wrapped button labels as well as single-line labels', () => {
@@ -172,15 +194,15 @@ test('keeps the mobile hero immediately readable while desktop motion is optiona
   const mobileStyles = styles.slice(styles.indexOf('@media (max-width: 900px)'));
 
   assert.match(mobileStyles, /\.js-motion \.hero-copy > \.motion-reveal[\s\S]*opacity: 1;/);
-  assert.match(mobileStyles, /\.js-motion \.hero-portrait\.motion-reveal[\s\S]*animation: none;/);
+  assert.match(mobileStyles, /\.js-motion \.hero-network-frame\.motion-reveal[\s\S]*animation: none;/);
 });
 
-test('keeps the portrait and topology in distinct responsive layout tracks', () => {
+test('keeps the network video in a responsive hero visual grid', () => {
+  const home = readFileSync('index.html', 'utf8');
   const styles = readFileSync('site.css', 'utf8');
 
+  assert.match(home, /class="hero-visual"[\s\S]*?class="hero-network-frame(?: [^"]*)?"/);
   assert.match(styles, /\.hero-visual \{[^}]*display: grid;/);
-  assert.match(styles, /\.hero-portrait \{[^}]*position: relative;/);
-  assert.match(styles, /\.topology-canvas \{[^}]*position: relative;/);
   assert.match(styles, /@media \(max-width: 900px\) \{(?:[^{}]|\{[^{}]*\})*?\.hero-visual \{[^}]*grid-template-columns: 1fr;/);
 });
 
