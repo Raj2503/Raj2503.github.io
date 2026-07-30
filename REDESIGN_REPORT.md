@@ -9,14 +9,14 @@
 - Added a distinct open-source section for Career Copilot, Pacman Flutter and Hindi Text-to-Speech. Star/fork counts are explicitly labelled as a 29 July 2026 snapshot.
 - Added the two supplied Medium articles as canonical external writing entries and RSS items.
 - Added progressive infrastructure motion: sequenced section reveals, animated request signals, availability ripple, responsive menu staging and richer card/CTA feedback. These effects use native CSS and a small observer, with no animation dependency.
-- Reframed the homepage as an expressive systems canvas: a portrait-led topology hero, four distinct system-story covers, a Labs presentation for public work and a lightweight work-route topology.
+- Reframed the homepage as an expressive systems canvas: the duplicate top portrait and handmade topology diagram are now an optimised, locally served Pexels network-flow MP4 with a static reduced-motion poster. The About portrait remains in place; the video has a visible credit linking to Nicola Narracci’s Pexels source.
 - Repaired the desktop pointer halo so it is visible on first paint and moves only for fine-pointer, motion-enabled visitors. Mobile and reduced-motion visitors receive a static, immediately readable experience.
 - Corrected wrapped CTA-label alignment across the site, including “Explore services” and “Read the writing”.
-- Rebuilt the hero's portrait and request-flow visual as separate responsive grid tracks, eliminating the laptop overlap. Added a 1200 px layout transition and a one-column laptop contact form so inputs and their guidance remain readable.
+- Rebuilt the hero visual as a responsive network-flow media frame, eliminating the laptop overlap. Added a 1200 px layout transition and a one-column laptop contact form so inputs and their guidance remain readable.
 
 ## Design direction
 
-The site uses a calm, premium editorial treatment rather than a generic developer dashboard: black utility navigation, generous whitespace, compact information cards and original infrastructure motifs. The expressive systems canvas adds restrained personality through a shaped portrait, topology overlays, packet signals and topic-specific cover treatments. The visual language supports the message—systems built for traffic, failure and cost constraints—without exposing internal architecture or adding decorative animation.
+The site uses a calm, premium editorial treatment rather than a generic developer dashboard: black utility navigation, generous whitespace, compact information cards and original infrastructure motifs. The expressive systems canvas adds restrained personality through a credited network-flow visual, topic-specific cover treatments and a retained About portrait rather than repeating the same image at the top of the page. The visual language supports the message—systems built for traffic, failure and cost constraints—without exposing internal architecture or adding decorative animation.
 
 ## Routes
 
@@ -40,7 +40,7 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 - `site.js` handles the accessible mobile menu, optional privacy-conscious event hook and mailto form hand-off.
 - `content/site-data.js` centralises public profile links, verified metrics and dated open-source project data.
 - `content/articles/` contains markdown source notes for the site articles; `CONTENT_EDITING.md` explains the publishing workflow.
-- Original inline SVG diagrams represent request paths, indexing pipelines and retry multiplication without relying on proprietary assets.
+- Original inline SVG diagrams represent request paths, indexing pipelines and retry multiplication without relying on proprietary assets. The homepage uses a locally served, credited Pexels network-flow visual rather than a second portrait or a handmade hero diagram.
 - The homepage work cards use `data-topology` variants and the Labs cards use CSS-only visual treatments, keeping the different stories distinct without adding an animation library or extra image assets.
 
 ## SEO completed
@@ -54,7 +54,7 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 ## Performance findings
 
 - No framework runtime, UI library, web font download, image CDN, analytics vendor or third-party script is shipped.
-- Critical local payloads: CSS 16 KB, JavaScript 4 KB, social SVG 4 KB and favicon SVG 4 KB. The only content image is the supplied, resized 484 KB portrait and loads below the fold.
+- The hero visual is an H.264 MP4 at 540 × 960, 20 fps and 10 seconds with no audio (about 2.5 MB), paired with a 127 KB static poster. The video is locally served, constrained to its layout frame and replaced by the poster for reduced-motion visitors.
 - Layout reserves portrait dimensions, avoids large animation libraries and honours `prefers-reduced-motion`.
 - Motion is progressive: content stays visible if JavaScript or `IntersectionObserver` is unavailable, mobile hero content is immediately visible, and visitors who prefer reduced motion receive no observer reveals or continuous signal effects.
 - A synthetic Lighthouse run was not added because the project deliberately has no browser automation dependency. The site is structured for strong Core Web Vitals rather than claiming an unmeasured score.
@@ -64,7 +64,7 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 - Every route has a skip link, `main` landmark, visible keyboard focus styling and responsive navigation.
 - Forms use native labels, required fields, useful placeholders and a screen-reader-safe honeypot.
 - SVG diagrams use concise accessible descriptions; images use descriptive alternative text.
-- The CSS supplies a reduced-motion override, a 1200 px laptop transition and mobile layouts at 900 px and 650 px. Fine-pointer halo behaviour is excluded from touch/coarse pointers.
+- The CSS supplies a reduced-motion override, a 1200 px laptop transition and mobile layouts at 900 px and 650 px. Fine-pointer halo behaviour is excluded from touch/coarse pointers. The hero video remains decorative while its visible source credit is a normal accessible link; reduced-motion visitors receive its static poster.
 - Automated static accessibility/discovery lint passed across all nine HTML routes. A browser-based screen-reader audit remains a recommended pre-launch check.
 - The two horizontally scrollable code examples are keyboard-focusable and retain their visible focus treatment.
 
@@ -81,6 +81,7 @@ The site uses a calm, premium editorial treatment rather than a generic develope
 | `npm run build` | Passed; runs lint, links and tests. |
 | `npm run preview` + local HTTP smoke check | Every published route returned HTTP 200. |
 | Chrome desktop/laptop/tablet/mobile audit | Passed: all nine routes at 1440, 1024, 768 and 390 CSS px (36 checks) had no page overflow, sibling collisions, clipped controls, off-centre buttons or hero visual intersections. Page-by-page visual checks also confirmed the work, services, writing, article, about and contact flows. |
+| Hero visual inspection | Passed at desktop, tablet and mobile widths: the video remained contained, its source caption remained readable, and the reduced-motion poster fallback rendered without motion. |
 
 ## Remaining editable values and recommended follow-up
 
