@@ -39,6 +39,41 @@ test('home page contains accessible page structure and explicit positioning', ()
   assert.match(home, /application\/ld\+json/);
 });
 
+test('anchors the availability dot and ripple to a non-shrinking indicator', () => {
+  const home = readFileSync('index.html', 'utf8');
+  const styles = readFileSync('site.css', 'utf8');
+  const availabilityMatch = home.match(/<p class="availability">([\s\S]*?)<\/p>/);
+  const indicatorRule = styles.match(/\.availability-indicator\s*\{([^}]*)\}/);
+  const indicatorDotRule = styles.match(/\.availability-indicator::before\s*\{([^}]*)\}/);
+  const indicatorRippleRule = styles.match(/\.availability-indicator::after\s*\{([^}]*)\}/);
+
+  assert.ok(availabilityMatch, 'home needs an availability paragraph');
+  assert.match(availabilityMatch[1], /<span\b(?=[^>]*\bclass="[^"]*\bavailability-indicator\b[^"]*")(?=[^>]*\baria-hidden="true")[^>]*><\/span>\s*Open to senior backend/);
+  assert.ok(indicatorRule, 'availability indicator needs its own rule');
+  assert.match(indicatorRule[1], /(?:flex:\s*0 0(?:\s+[^;]+)?;|flex-shrink:\s*0;)/);
+  assert.ok(indicatorDotRule, 'availability indicator needs a dot');
+  assert.match(indicatorDotRule[1], /content:\s*"";/);
+  assert.match(indicatorDotRule[1], /background(?:-color)?:\s*[^;]+;/);
+  assert.ok(indicatorRippleRule, 'availability indicator needs a ripple');
+  assert.match(indicatorRippleRule[1], /content:\s*"";/);
+  assert.match(indicatorRippleRule[1], /border:\s*[^;]+;/);
+  assert.match(indicatorRippleRule[1], /animation:\s*availability-ripple/);
+  assert.doesNotMatch(styles, /\.availability::before/);
+  assert.doesNotMatch(styles, /\.availability::after/);
+
+  const usesGridCentering = /display:\s*grid;/.test(indicatorRule[1])
+    && /place-items:\s*center;/.test(indicatorRule[1])
+    && /grid-area:\s*1\s*\/\s*1;/.test(indicatorDotRule[1])
+    && /grid-area:\s*1\s*\/\s*1;/.test(indicatorRippleRule[1]);
+  const usesAbsoluteCentering = /position:\s*relative;/.test(indicatorRule[1])
+    && [indicatorDotRule[1], indicatorRippleRule[1]].every((rule) => /position:\s*absolute;/.test(rule)
+      && /top:\s*50%;/.test(rule)
+      && /left:\s*50%;/.test(rule)
+      && /transform:\s*translate\(\s*-50%\s*,\s*-50%\s*\)/.test(rule));
+
+  assert.equal(usesGridCentering || usesAbsoluteCentering, true, 'availability indicator needs a shared centring mechanism');
+});
+
 test('home features the strongest public open-source projects with provenance', () => {
   const home = readFileSync('index.html', 'utf8');
   assert.match(home, /Labs, earlier builds &amp; open source/);
