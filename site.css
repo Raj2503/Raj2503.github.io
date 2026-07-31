@@ -86,9 +86,10 @@ h3 { margin-bottom: 10px; font-size: 24px; }
 .hero-network-frame figcaption { position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; padding: 30px 16px 14px; color: rgba(255, 255, 255, 0.84); font-size: 12px; line-height: 1.35; letter-spacing: -0.01em; }
 .hero-network-frame figcaption a { color: inherit; text-decoration-color: rgba(115, 183, 255, 0.7); }
 .hero-network-frame figcaption a:hover { color: #fff; }
-.availability { position: relative; display: inline-flex; gap: 9px; align-items: center; margin-top: 38px; color: #b7f7c8; font-size: 14px; }
-.availability::before { width: 8px; height: 8px; content: ""; background: #35d064; border-radius: 50%; box-shadow: 0 0 0 4px rgba(53, 208, 100, 0.14); }
-.availability::after { position: absolute; top: -4px; left: -4px; width: 16px; height: 16px; content: ""; border: 1px solid rgba(53, 208, 100, 0.8); border-radius: 50%; animation: availability-ripple 2.4s ease-out infinite; }
+.availability { display: inline-flex; gap: 9px; align-items: flex-start; margin-top: 38px; color: #b7f7c8; font-size: 14px; }
+.availability-indicator { display: grid; flex: 0 0 8px; place-items: center; width: 8px; height: 1.5em; }
+.availability-indicator::before { grid-area: 1 / 1; width: 8px; height: 8px; content: ""; background: #35d064; border-radius: 50%; box-shadow: 0 0 0 4px rgba(53, 208, 100, 0.14); }
+.availability-indicator::after { grid-area: 1 / 1; box-sizing: border-box; width: 18px; height: 18px; content: ""; border: 1px solid rgba(53, 208, 100, 0.8); border-radius: 50%; animation: availability-ripple 2.4s ease-out infinite; }
 @keyframes travel { to { stroke-dashoffset: -128; } }
 @keyframes availability-ripple { 0% { opacity: 0.9; transform: scale(0.65); } 70%, 100% { opacity: 0; transform: scale(1.5); } }
 
@@ -305,6 +306,6 @@ h3 { margin-bottom: 10px; font-size: 24px; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .js-motion .motion-reveal { opacity: 1; transform: none; }
   .hero-network-video { display: none; }
-  .availability::after, .work-canvas-trace { animation: none; }
+  .availability-indicator::after, .work-canvas-trace { animation: none; }
   .pointer-halo { display: none; }
 }
